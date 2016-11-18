@@ -1,2 +1,2 @@
 job1:
-  mocha test/unit
+  script: mocha test/unit

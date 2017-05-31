@@ -8,14 +8,10 @@ var userHelper = require('../lib/user_helper');
 
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  var data = {
-    value: 'testValue passed in',
-    listValues: [ 'a', 1, 'b', 'c']
-  }
+router.get('/test', function(req, res) {
 
   //Data passed in can be used in jade template engine
-  return res.render('index', {data: data});
+  return res.render('index.pug');
 });
 
 //Sample REST API get request

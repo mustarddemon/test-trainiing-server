@@ -1,12 +1,14 @@
-var express = require('express');
-var path = require('path');
+const express = require('express');
+const path = require('path');
 //Route file contains all API information
-var routes = require('./routes/index');
-var app = express();
+const routes = require('./routes/index');
+const app = express();
+const winston = require('winston');
+winston.level = process.env.LOG || 'info';
 
-//Specifies where views are located and using jade engine
+//Specifies where views are located and using pug engine
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 //Specifies root path and where routes are defined
 app.use('/', routes);
@@ -15,4 +17,6 @@ app.use('/', routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Uses Port 3000 if no DEV_PORT env variable is set
-app.listen(process.env.DEV_PORT || 3000);
+let port = process.env.PORT || 3996;
+winston.log('info', 'Starting server on port ' + port);
+app.listen(port);

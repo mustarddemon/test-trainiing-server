@@ -1,0 +1,53 @@
+h1 Security Testing
+
+p Sometimes users are mean spirited and malicious.  And they deliberately put bad information in to try cause problems with your site
+p Security testing is being a "white hat" hacker that uses hacking tricks and tools against their own site to find out if there are vulnerabilities that can be exploited by bad "black hat" hackers
+
+p Two of the main ways hackers attack is SQL injection and XSS - Cross Site Scripting attacks.
+p SQL injection is inputting a string to trick the computer into running a data base query it doesnt expect
+p Cross site scripting is inputting a string to trick your browser into rendering something it shouldnt
+
+
+h2 *********************************The Application Under test***********************************************
+h3 Input the name of a user and I'll tell you what kind of pets they have
+a(href='/?equivalencePartitioning=true') Click Here to Reset
+
+form(method='GET' action='/securitytesting')
+  table(border=1)
+    tr
+      td
+        Type the name of the user you are looking for
+      td
+        input(name='name' type='text')
+    tr
+      td
+        input(type='submit')
+
+if (queryResult != null)
+
+  if (name == 'HTML')
+    p You inserted some custom HTML!
+  if (name == 'JAVASCRIPT')
+    script(type='text/javascript').
+      alert('whoah dude')
+  if (name == 'ROLLOVER')
+    h2 Here are the pets we found for user #{name}
+    ul
+      each result in queryResult
+        li(onmouseover="alert('suprise!')") #{result.pet}
+
+  else
+    h2 Here are the pets we found for user #{name}
+    ul
+      each result in queryResult
+        li #{result.pet}
+
+
+
+if (bug != null)
+  h1
+    font(color='red') Congratulations you found a bug!!!
+
+  ul
+    each b in bug
+      li #{b}

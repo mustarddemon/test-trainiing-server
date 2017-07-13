@@ -1,0 +1,33 @@
+h1 Equivalence Partioning
+
+p When it comes to testing numerical and string fields the number of valid options is pretty much impossible to test fully
+p so it makes more sense to break things up in to categories of inputs and then test around those categores
+p The below application takes your age and tells you how many seconds you've been alive.   Think about how you can group inputs into categories to test this.
+
+
+h2 *********************************The Application Under test***********************************************
+h3 Tell me your age and I'll tell you how many seconds you've been alive
+a(href='/?equivalencePartitioning=true') Click Here to Reset
+
+form(method='GET' action='/equivalencePartitioning')
+  table(border=1)
+    tr
+      td
+        Type your age
+      td
+        input(name='age' type='text')
+    tr
+      td
+        input(type='submit')
+
+if (seconds != null && seconds != -1)
+  h2 Hello did you know you have been alive for #{seconds}  seconds?
+
+
+if (bug != null)
+  h1
+    font(color='red') Congratulations you found a bug!!!
+
+  ul
+    each b in bug
+      li #{b}

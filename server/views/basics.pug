@@ -1,0 +1,44 @@
+h1 The Basics of Testing
+
+p The boring part of testing is usually called 'happy path' testing which means checking that it works
+the way it is supposed to.   Obviously this is important, but also fairly brainless (with some notable exceptions)
+So instead we are going to start with the more interesting idea of negative testing.
+
+p The application below is a very simple form in which you can input your name and home state abbreviation and it will
+display a simple message.
+
+p 'forms' are anything on a webpage that take user input, in this case there are two 'text' input fields for name and state abbreviation
+
+p bugs occur when users do not fill out the form properly take a moment to try different 'test cases' to see that the form works and then try to break it
+
+h2 *********************************The Application Under test***********************************************
+h3 Tell me your name and home state and I'll send a nice message
+a(href='/basics?start=true') Click Here to Reset
+
+form(method='GET' action='/basics')
+  table(border=1)
+    tr
+      td
+        Type your name
+      td
+        input(name='username' type='text')
+    tr
+      td
+        Type your two character state code for your home state
+      td
+        input(name='state' type='text')
+    tr
+      td
+        input(type='submit')
+
+if (name != null || state != null)
+  h2(color='red') Hello person named - #{name} - what was it like in #{state}
+
+
+if (bug != null)
+  h1
+    font(color='red') Congratulations you found a bug!!!
+
+  ul
+    each b in bug
+      li #{b}

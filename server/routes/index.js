@@ -238,10 +238,13 @@ router.get('/localization', function(req, res) {
     }
 
   }
-
+  var amountText = '';
+  if (langData[language]) {
+    amountText = langData[language].amountText;
+  }
   return res.render('localization.pug', {
     bug: bug.length > 0 ? bug : null,
-    amountText: langData[language].amountText
+    amountText: amountText
   });
 });
 

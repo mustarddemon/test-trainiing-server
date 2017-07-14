@@ -169,4 +169,82 @@ router.get('/securitytesting', function(req, res) {
   });
 });
 
+router.get('/localization', function(req, res) {
+  var start = req.query.start;
+  var language = req.query.language;
+  var date = req.query.date;
+  var amount = req.query.amount;
+  var langData = {
+    USA: {
+      amountText: 'Enter amount'
+    },
+    UK: {
+      amountText: 'Please enter the amount of money'
+    },
+    German: {
+      amountText: 'Geben Sie die Geldmenge ein, die Sie in Ihr Konto einzahlen möchten'
+    }
+  };
+  var bug = [];
+  var done = false;
+  if (!start) {
+    if (!amount) {
+      bug.push('Amount must be provided');
+      done = true;
+    }
+    if (!date) {
+      bug.push('Date must be provided');
+      done = true;
+    }
+
+    if (!done) {
+      var dateSplit = date.split('-');
+      if (dateSplit.length !== 3) {
+        bug.push('Date must be in mm-dd-yyyy or dd-mm-yyyy format');
+        done = true;
+      }
+      var day, month, year;
+      if (!done && language !== 'USA') {
+        day = dateSplit[0];
+        month = dateSplit[1];
+        year = dateSplit[2];
+        if (amount.includes('.')) {
+          bug.push('NON US LOCALES USE , Instead of Decimal Point');
+        }
+      } else {
+        day = dateSplit[1];
+        month = dateSplit[0];
+        year = dateSplit[2];
+        if (amount.includes(',')) {
+          bug.push('US LOCALES USE . Instead of , ');
+        }
+      }
+      if (month > 12) {
+        bug.push('Month is greater than 12!');
+      }
+      if (day > 31) {
+        bug.push('Date is too big for month');
+      }
+      if (month === 2 && day > 28) {
+        bug.push('Date is too big for month');
+      }
+      if (year < 2017) {
+        bug.push('Cannot deposit money in the past');
+      }
+      if (year > 2018) {
+        bug.push('Cannot deposit more than 1 year in the future');
+      }
+
+    }
+
+  }
+
+  return res.render('localization.pug', {
+    bug: bug.length > 0 ? bug : null,
+    amountText: langData[language].amountText
+  });
+});
+
+
+
 module.exports = router;

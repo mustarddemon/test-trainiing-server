@@ -1,0 +1,45 @@
+h1 Localization Testing
+
+p Software and websites are worldwide, even if you are just starting a local website you never know if you'll have people from different countries who speak different languages that might want to use it
+p A often overlooked field in testing is what's called localization testing.  This is checking that translations are accurate and accounts for various quirks with countries such as date format, money representation etc
+
+h2 *********************************The Application Under test***********************************************
+h3 Give me a date and an amount of money and I'll deposit it for you
+a(href='/?equivalencePartitioning=true') Click Here to Reset
+
+form(method='GET' action='/localization')
+  table(border=1)
+    tr
+      td
+        Now Select a language/country to use
+      td
+        select(name='language')
+          option USA
+          option UK
+          option Spanish
+          option German
+    tr
+      td
+        Type a date in for when to deposit the money
+      td
+        input(name='date' type='text')
+    tr
+      td
+        Type in the amount you wish to deposit
+      td
+        input(name='amount' type='text' value=`${amountText}`)
+    tr
+      td
+        input(type='submit')
+
+if (seconds != null && seconds != -1)
+  h2 Hello did you know you have been alive for #{seconds}  seconds?
+
+
+if (bug != null)
+  h1
+    font(color='red') Congratulations you found a bug!!!
+
+  ul
+    each b in bug
+      li #{b}
